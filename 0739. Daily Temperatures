@@ -1,0 +1,26 @@
+class Solution {
+public:
+    Solution(){
+        ios::sync_with_stdio(0);
+        cin.tie(0);
+        cout.tie(0);
+    }
+    vector<int> dailyTemperatures(vector<int>& temperatures) {
+        stack<pair<int,int>> s;
+        int day=temperatures.size();
+        vector<int> res(day,0);
+        for(int i=day-1;i>=0;--i){
+            while(!s.empty() && s.top().first<=temperatures[i]){
+                s.pop();
+            }
+            if(s.empty()){
+                res[i]=0;
+            }
+            else{
+                res[i]=s.top().second-i;
+            }
+            s.push(make_pair(temperatures[i],i));
+        }
+        return res;
+    }
+};
